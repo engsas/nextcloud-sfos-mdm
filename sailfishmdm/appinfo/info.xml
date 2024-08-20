@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+	<id>sailfishmdm</id>
+	<name>Sailfish MDM</name>
+	<summary>Backend for a Mobile Device Management (MDM) of Sailfish Devices</summary>
+	<description>Backend for managing Sailfish Devices via MDM.</description>
+	<version>0.0.1</version>
+	<licence>agpl</licence>
+	<author mail="joachim.langenbach@engsas.de" homepage="">Joachim Langenbach</author>
+	<namespace>SailfishMDM</namespace>
+	<category>integration</category>
+	<bugs>https://github.com/engsas/nextcloud-sfos-mdm/issues</bugs>
+	<dependencies>
+		<nextcloud min-version="28" max-version="29"/>
+	</dependencies>
+	<navigations>
+		<navigation>
+			<id>sailfishmdm</id>
+			<name>Sailfish M D M</name>
+			<route>sailfishmdm.page.index</route>
+			<icon>app.svg</icon>
+			<type>link</type>
+		</navigation>
+	</navigations>
+</info>
