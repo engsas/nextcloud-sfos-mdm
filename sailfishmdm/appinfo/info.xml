@@ -17,7 +17,7 @@
 	<navigations>
 		<navigation>
 			<id>sailfishmdm</id>
-			<name>Sailfish M D M</name>
+			<name>Sailfish MDM</name>
 			<route>sailfishmdm.page.index</route>
 			<icon>app.svg</icon>
 			<type>link</type>
