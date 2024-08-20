@@ -48,8 +48,8 @@ class DeviceService {
 	 */
 	public function getDevices(string $userId): array {
         return array(
-            array('imei' => "1234"),
-            array('imei' => "5678"),
+            array('id' => 1, 'imei' => "1234", 'link' => '/apps/sailfishmdm/devices/1'),
+            array('id' => 2, 'imei' => "5678", 'link' => '/apps/sailfishmdm/devices/2'),
         );
 	}
 

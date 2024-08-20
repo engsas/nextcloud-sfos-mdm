@@ -17,6 +17,8 @@
     "extends @nextcloud/browserslist-config"
   ],
   "dependencies": {
+    "@jamescoyle/vue-icon": "^0.1.2",
+    "@mdi/js": "^7.4.47",
     "@nextcloud/axios": "^2.5.0",
     "@nextcloud/dialogs": "^3.2.0",
     "@nextcloud/initial-state": "^2.2.0",

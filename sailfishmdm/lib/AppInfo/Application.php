@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OCA\SailfishMDM\AppInfo;
 
-use OCA\SailfishMDM\Dashboard\SimpleWidget;
+use OCA\SailfishMDM\Dashboard\VueWidget;
 use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
@@ -19,7 +19,7 @@ class Application extends App implements IBootstrap {
 	}
 
 	public function register(IRegistrationContext $context): void {
-		$context->registerDashboardWidget(SimpleWidget::class);
+		$context->registerDashboardWidget(VueWidget::class);
 	}
 
 	public function boot(IBootContext $context): void {
