@@ -25,6 +25,7 @@ class Sysinfo extends Entity implements JsonSerializable {
         return [
             'id' => $this->id,
             'bluetoothMacAddress' => $this->bluetoothMacAddress,
+            'deviceModel' => $this->deviceModel,
             'deviceUid' => $this->deviceUid,
             'manufacturer' => $this->manufacturer,
             'productName' => $this->productName,

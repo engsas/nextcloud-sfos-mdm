@@ -27,11 +27,11 @@ class SysinfoMapper extends QBMapper {
     public function findAll(string $userId = null) {
         $qb = $this->db->getQueryBuilder();
 
-        if is_null($userId ) {
+        if ($userId === null) {
             $qb->select('*')
             ->from($this->getTableName());
         }
-        else{
+        else {
             $qb->select('*')
             ->from($this->getTableName())
             ->where(

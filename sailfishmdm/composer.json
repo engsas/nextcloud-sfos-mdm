@@ -1,0 +1,23 @@
+{
+    "name": "engsas/nextcloud-sfos-mdml",
+    "description": "NBackend for a Sailfish MDM app",
+    "type": "project",
+    "license": "AGPL",
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "nextcloud/coding-standard": "^1.0.0",
+        "nextcloud/ocp": "dev-stable25"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "classmap-authoritative": true,
+        "platform": {
+            "php": "7.4"
+        }
+    },
+    "scripts": {
+        "lint": "find . -name \\*.php -not -path './vendor/*' -not -path './build/*' -print0 | xargs -0 -n1 php -l",
+        "cs:check": "php-cs-fixer fix --dry-run --diff",
+        "cs:fix": "php-cs-fixer fix"
+    }
+}

@@ -58,7 +58,7 @@ class SysinfoApiController extends ApiController {
 	 * @param string $wlanMacAddress
      */
     public function create(
-        string $bluetoothMacAddress,
+		string $bluetoothMacAddress,
 		string $deviceModel,
 		string $deviceUid,
 		string $manufacturer,
@@ -67,7 +67,17 @@ class SysinfoApiController extends ApiController {
 		string $softwareVersionId,
 		string $wlanMacAddress
     ) {
-        return $this->service->create($title, $content, $this->userId);
+        return $this->service->create(
+			$bluetoothMacAddress,
+			$deviceModel,
+			$deviceUid,
+			$manufacturer,
+			$productName,
+			$softwareVersion,
+			$softwareVersionId,
+			$wlanMacAddress,
+            $this->userId
+        );
     }
 
     /**
@@ -88,16 +98,37 @@ class SysinfoApiController extends ApiController {
     public function update(
         $id,
         string $bluetoothMacAddress,
-		string $deviceModel,
-		string $deviceUid,
-		string $manufacturer,
-		string $productName,
-		string $softwareVersion,
-		string $softwareVersionId,
-		string $wlanMacAddress
+        string $deviceModel,
+        string $deviceUid,
+        string $manufacturer,
+        string $productName,
+        string $softwareVersion,
+        string $softwareVersionId,
+        string $wlanMacAddress
     ) {
-        return $this->handleNotFound(function () use ($id, $title, $content) {
-            return $this->service->update($id, $title, $content, $this->userId);
+        return $this->handleNotFound(function () use (
+			$id,
+			$bluetoothMacAddress,
+			$deviceModel,
+			$deviceUid,
+			$manufacturer,
+			$productName,
+			$softwareVersion,
+			$softwareVersionId,
+			$wlanMacAddress
+		) {
+            return $this->service->update(
+                $id,
+                $bluetoothMacAddress,
+                $deviceModel,
+                $deviceUid,
+                $manufacturer,
+                $productName,
+                $softwareVersion,
+                $softwareVersionId,
+                $wlanMacAddress,
+                $this->userId
+            );
         });
     }
 
@@ -110,7 +141,7 @@ class SysinfoApiController extends ApiController {
      */
     public function destroy($id) {
         return $this->handleNotFound(function () use ($id) {
-            return $this->service->delete($id, $this->userId);
+            return $this->service->destroy($id, $this->userId);
         });
     }
 

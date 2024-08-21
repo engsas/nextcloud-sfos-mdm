@@ -1,27 +1,27 @@
 <?php
 
-declare(strict_types=1);
-
 namespace OCA\SailfishMDM\Controller;
 
 use OCA\SailfishMDM\AppInfo\Application;
 use OCP\AppFramework\Controller;
-use OCP\AppFramework\Http\Attribute\FrontpageRoute;
-use OCP\AppFramework\Http\Attribute\NoAdminRequired;
-use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
-use OCP\AppFramework\Http\Attribute\OpenAPI;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IRequest;
+use OCP\Util;
 
-/**
- * @psalm-suppress UnusedClass
- */
 class PageController extends Controller {
-	#[NoCSRFRequired]
-	#[NoAdminRequired]
-	#[OpenAPI(scope: OpenAPI::SCOPE_IGNORE)]
-	#[FrontpageRoute(verb: 'GET', url: '/')]
-	public function index(): TemplateResponse {
-		return new TemplateResponse('sailfishmdm', 'main');
+	public function __construct(IRequest $request) {
+		parent::__construct(Application::APP_ID, $request);
+	}
+
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 *
+	 * Render default template
+	 */
+	public function index() {
+		Util::addScript(Application::APP_ID, 'sailfishmdm-main');
+
+		return new TemplateResponse(Application::APP_ID, 'main');
 	}
 }

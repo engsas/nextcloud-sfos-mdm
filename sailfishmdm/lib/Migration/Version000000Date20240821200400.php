@@ -7,7 +7,7 @@
   use OCP\Migration\SimpleMigrationStep;
   use OCP\Migration\IOutput;
 
-  class Version1400Date20181013124731 extends SimpleMigrationStep {
+  class Version000000Date20240821200400 extends SimpleMigrationStep {
 
     /**
     * @param IOutput $output
@@ -62,8 +62,8 @@
             ]);
 
             $table->setPrimaryKey(['id']);
-            $table->addIndex(['user_id'], 'sailfishmdm_sysinfo_user_id_index');
-            $table->addIndex(['device_uid'], 'sailfishmdm_sysinfo_device_uid_index');
+            $table->addIndex(['user_id'], 'sailfishmdm_si_user_id_index');
+            $table->addIndex(['device_uid'], 'sailfishmdm_si_d_uid_index');
         }
         return $schema;
     }

@@ -2,18 +2,12 @@
 
 namespace OCA\SailfishMDM\Controller;
 
-use OC\User\NoUserException;
-use OCA\SailfishMDM\Service\SysinfoService;
-use OCP\AppFramework\Http;
-use OCP\AppFramework\Http\JSONResponse;
-use OCP\AppFramework\Services\IInitialState;
-use OCP\Files\InvalidPathException;
-use OCP\Files\NotFoundException;
-use OCP\Files\NotPermittedException;
-use OCP\Lock\LockedException;
+use OCA\SailfishMDM\AppInfo\Application;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\IRequest;
+
+use OCA\SailfishMDM\Service\SysinfoService;
 
 class SysinfoController extends Controller {
 
@@ -33,13 +27,6 @@ class SysinfoController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 *
-	 * @return DataResponse
-	 * @throws InvalidPathException
-	 * @throws NoUserException
-	 * @throws NotFoundException
-	 * @throws NotPermittedException
-	 * @throws LockedException
 	 */
 	public function index() : DataResponse {
 		return new DataResponse($this->service->findAll($this->userId));
@@ -49,13 +36,6 @@ class SysinfoController extends Controller {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 *
-	 * @param int $id
-	 * @return DataResponse|Http::STATUS_NOT_FOUND
-	 * @throws InvalidPathException
-	 * @throws NoUserException
-	 * @throws NotFoundException
-	 * @throws NotPermittedException
-	 * @throws LockedException
 	 */
 	public function show(int $id) : DataResponse {
 		return $this->handleNotFound(function () use ($id) {
@@ -66,20 +46,6 @@ class SysinfoController extends Controller {
 	/**
 	* @NoAdminRequired
 	 * @NoCSRFRequired
-	 *
-	 * @param string $bluetoothMacAddress
-	 * @param string $deviceModel
-	 * @param string $deviceUid
-	 * @param string $manufacturer
-	 * @param string $productName
-	 * @param string $softwareVersion
-	 * @param string $softwareVersionId
-	 * @param string $wlanMacAddress
-	 * @return JSONResponse
-	 * @throws InvalidPathException
-	 * @throws NoUserException
-	 * @throws NotPermittedException
-	 * @throws LockedException
 	 */
 	public function create(
 		string $bluetoothMacAddress,
@@ -106,27 +72,19 @@ class SysinfoController extends Controller {
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 *
-	 * @param int $deviceId
-	 * @return DataResponse
-	 * @throws InvalidPathException
-	 * @throws NoUserException
-	 * @throws NotFoundException
-	 * @throws NotPermittedException
-	 * @throws LockedException
 	 */
 	public function update(
-		int $id,
-		string $bluetoothMacAddress,
-		string $deviceModel,
-		string $deviceUid,
-		string $manufacturer,
-		string $productName,
-		string $softwareVersion,
-		string $softwareVersionId,
-		string $wlanMacAddress
-	) : DataResponse {
-		return $this->handleNotFound(function () use (
+        $id,
+        string $bluetoothMacAddress,
+        string $deviceModel,
+        string $deviceUid,
+        string $manufacturer,
+        string $productName,
+        string $softwareVersion,
+        string $softwareVersionId,
+        string $wlanMacAddress
+    ) {
+        return $this->handleNotFound(function () use (
 			$id,
 			$bluetoothMacAddress,
 			$deviceModel,
@@ -137,48 +95,34 @@ class SysinfoController extends Controller {
 			$softwareVersionId,
 			$wlanMacAddress
 		) {
-			return $this->service->update(
-				$id,
-				$bluetoothMacAddress,
-				$deviceModel,
-				$deviceUid,
-				$manufacturer,
-				$productName,
-				$softwareVersion,
-				$softwareVersionId,
-				$wlanMacAddress
-			)
-		});
-	}
+            return $this->service->update(
+                $id,
+                $bluetoothMacAddress,
+                $deviceModel,
+                $deviceUid,
+                $manufacturer,
+                $productName,
+                $softwareVersion,
+                $softwareVersionId,
+                $wlanMacAddress,
+                $this->userId
+            );
+        });
+    }
 
 	/**
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
-	 *
-	 * @param int $deviceId
-	 * @return DataResponse
-	 * @throws InvalidPathException
-	 * @throws NoUserException
-	 * @throws NotFoundException
-	 * @throws NotPermittedException
-	 * @throws LockedException
 	 */
-	public function destroy(int $deviceId) : DataResponse {
+	public function destroy(int $id) : DataResponse {
 		return $this->handleNotFound(function () use ($id) {
-			return $this->service->delete($id, $this->userId);
+			return $this->service->destroy($id, $this->userId);
 		});
 	}
 
 	/**
 	 * @AdminRequired
 	 * @NoCSRFRequired
-	 *
-	 * @return DataResponse
-	 * @throws InvalidPathException
-	 * @throws NoUserException
-	 * @throws NotFoundException
-	 * @throws NotPermittedException
-	 * @throws LockedException
 	 */
 	public function adminListAll() : DataResponse {
 		return new DataResponse($this->service->findAll(null));

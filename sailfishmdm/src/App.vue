@@ -10,7 +10,7 @@
 			<ul>
 				<NcAppNavigationItem v-for="sysinfo in sysinfos"
 					:key="sysinfo.id"
-					:deviceUid="sysinfo.deviceUid ? sysinfo.deviceUid : t('sailfishmdm', 'New Device')"
+					:title="sysinfo.deviceUid ? sysinfo.deviceUid : t('sailfishmdm', 'New Device')"
 					:class="{active: currentSysinfoId === sysinfo.id}"
 					@click="openSysinfo(sysinfo)">
 					<template slot="actions">
@@ -21,7 +21,7 @@
 						</NcActionButton>
 						<NcActionButton v-else
 							icon="icon-delete"
-							@click="deleteDevice(sysinfo)">
+							@click="deleteSysinfo(sysinfo)">
 							{{ t('sailfishmdm', 'Delete Device') }}
 						</NcActionButton>
 					</template>
@@ -30,11 +30,38 @@
 		</NcAppNavigation>
 		<NcAppContent>
 			<div v-if="currentSysinfo">
-				<input ref="deviceUid"
+				Device UID: <input ref="deviceUid"
 					v-model="currentSysinfo.deviceUid"
 					type="text"
 					:disabled="updating">
-				<textarea ref="content" v-model="currentSysinfo.content" :disabled="updating" />
+				Device Model: <input ref="deviceModel"
+					v-model="currentSysinfo.deviceModel"
+					type="text"
+					:disabled="updating">
+				Manufacturer: <input ref="manufacturer"
+					v-model="currentSysinfo.manufacturer"
+					type="text"
+					:disabled="updating">
+				Product Name: <input ref="productName"
+					v-model="currentSysinfo.productName"
+					type="text"
+					:disabled="updating">
+				Software Version: <input ref="softwareVersion"
+					v-model="currentSysinfo.softwareVersion"
+					type="text"
+					:disabled="updating">
+				Software Version ID: <input ref="softwareVersionId"
+					v-model="currentSysinfo.softwareVersionId"
+					type="text"
+					:disabled="updating">
+				Bluetooth Mac Address: <input ref="bluetoothMacAddress"
+					v-model="currentSysinfo.bluetoothMacAddress"
+					type="text"
+					:disabled="updating">
+				WLAN Mac Address: <input ref="wlanMacAddress"
+					v-model="currentSysinfo.wlanMacAddress"
+					type="text"
+					:disabled="updating">
 				<input type="button"
 					class="primary"
 					:value="t('sailfishmdm', 'Save')"
@@ -135,11 +162,11 @@ export default {
 		 * Action tiggered when clicking the save button
 		 * create a new sysinfo or save
 		 */
-		saveNote() {
+		saveSysinfo() {
 			if (this.currentSysinfoId === -1) {
-				this.createNote(this.currentSysinfo)
+				this.createSysinfo(this.currentSysinfo)
 			} else {
-				this.updateNote(this.currentSysinfo)
+				this.updateSysinfo(this.currentSysinfo)
 			}
 		},
 		/**
@@ -147,12 +174,12 @@ export default {
 		 * The sysinfo is not yet saved, therefore an id of -1 is used until it
 		 * has been persisted in the backend
 		 */
-		newNote() {
+		newSysInfo() {
 			if (this.currentSysinfoId !== -1) {
 				this.currentSysinfoId = -1
 				this.sysinfos.push({
 					bluetoothMacAddress: '',
-					eviceModel: '',
+					deviceModel: '',
 					deviceUid: '',
 					manufacturer: '',
 					productName: '',

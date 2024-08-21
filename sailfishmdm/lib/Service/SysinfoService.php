@@ -7,8 +7,8 @@ use Exception;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
-use OCA\NotesTutorial\Db\Note;
-use OCA\NotesTutorial\Db\NoteMapper;
+use OCA\SailfishMDM\Db\Sysinfo;
+use OCA\SailfishMDM\Db\SysinfoMapper;
 
 class SysinfoService {
 
@@ -24,7 +24,7 @@ class SysinfoService {
 	 *
 	 */
 	public function findAll(string $userId) {
-        return $this->mapper->findAll($this->userId);
+        return $this->mapper->findAll($userId);
 	}
 
 	/**
@@ -63,10 +63,11 @@ class SysinfoService {
 		string $productName,
 		string $softwareVersion,
 		string $softwareVersionId,
-		string $wlanMacAddress
+		string $wlanMacAddress,
+		string $userId
 	) {
 		$device = new Sysinfo();
-		$device->setUserId($this->userId);
+		$device->setUserId($userId);
 		$device->setBluetoothMacAddress($bluetoothMacAddress);
 		$device->setDeviceModel($deviceModel);
 		$device->setDeviceUid($deviceUid);
@@ -93,7 +94,9 @@ class SysinfoService {
 		string $productName,
 		string $softwareVersion,
 		string $softwareVersionId,
-		string $wlanMacAddress, string $userId) {
+		string $wlanMacAddress,
+		string $userId
+	) {
 
 		try {
 			$device = $this->mapper->find($id, $userId);
@@ -117,7 +120,7 @@ class SysinfoService {
 	 *
 	 * @param int $id
 	 */
-	public function destroy(int $id) {
+	public function destroy(int $id, string $userId) {
         try {
             $device = $this->mapper->find($id, $userId);
             $this->mapper->delete($device);
