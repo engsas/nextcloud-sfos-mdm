@@ -22,18 +22,6 @@ class PageController extends Controller {
 	#[OpenAPI(scope: OpenAPI::SCOPE_IGNORE)]
 	#[FrontpageRoute(verb: 'GET', url: '/')]
 	public function index(): TemplateResponse {
-		if ($getParameter === null) {
-			$getParameter = "";
-		}
-
-		// The TemplateResponse loads the 'index.php'
-		// defined in our app's 'templates' folder.
-		// We pass the $getParameter variable to the template
-		// so that the value is accessible in the template.
-		return new TemplateResponse(
-			'sailfishmdm',
-			'index',
-			['myMessage' => $getParameter]
-		);
+		return new TemplateResponse('sailfishmdm', 'main');
 	}
 }

@@ -1,8 +1,11 @@
 <?php
 
 return [
+	'resources' => [
+			'sysinfo' => ['url' => '/sysinfos']
+			'sysinfo_api' => ['url' => '/api/0.1/sysinfos']
+	],
 	'routes' => [
-		['name' => 'devices#getDevices', 'url' => '/devices', 'verb' => 'GET'],
-        ['name' => 'devices#getDevice', 'url' => '/devices/{deviceId}', 'verb' => 'GET'],
+		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 	],
 ];
