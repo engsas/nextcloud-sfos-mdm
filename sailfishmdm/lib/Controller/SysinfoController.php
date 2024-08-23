@@ -2,17 +2,18 @@
 
 namespace OCA\SailfishMDM\Controller;
 
-use OCA\SailfishMDM\AppInfo\Application;
-use OCP\AppFramework\Controller;
-use OCP\AppFramework\Http\DataResponse;
 use OCP\IRequest;
+use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\Controller;
 
 use OCA\SailfishMDM\Service\SysinfoService;
 
 class SysinfoController extends Controller {
 
-	private $userId;
 	private $service;
+	private $userId;
+
+	use Errors;
 
 	public function __construct(string        $appName,
 								IRequest      $request,

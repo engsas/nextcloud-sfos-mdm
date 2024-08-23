@@ -1,6 +1,6 @@
 <template>
-	<div id="content" class="app-notestutorial">
-		<NcAppNavigation :class="{'icon-loading': loading}">
+	<NcContent app-name='sailfishmdm' class="app-notestutorial">
+		<NcAppNavigation>
 			<template #list>
 				<NcAppNavigationItem
 					:name="t('sailfishmdm', 'Devices')"
@@ -14,10 +14,8 @@
 				</NcAppNavigationItem>
 			</template>
 		</NcAppNavigation>
-		<NcAppContent>
-			<router-view></router-view>
-		</NcAppContent>
-  </div>
+		<router-view></router-view>
+	</NcContent>
 </template>
 
 <script>
@@ -29,7 +27,7 @@ import { showError, showSuccess } from '@nextcloud/dialogs'
 import {
 	NcAppNavigation,
 	NcAppNavigationItem,
-	NcAppContent,
+	NcContent,
 } from '@nextcloud/vue'
 
 export default {
@@ -37,7 +35,7 @@ export default {
 	components: {
 		NcAppNavigation,
 		NcAppNavigationItem,
-		NcAppContent,
+		NcContent,
 	},
 	data() {
 		return {

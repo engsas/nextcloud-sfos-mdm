@@ -8,7 +8,10 @@ Vue.use(VueRouter)
 
 const routes = [
 	{ path: '/', component: DevicesView },
+    { path: '/devices', component: DevicesView },
+    { path: '/devices/:id', component: DevicesView },
 	{ path: '/policies', component: PoliciesView },
+	{ path: '/policies/:id', component: PoliciesView },
 ]
 
 export default new VueRouter({

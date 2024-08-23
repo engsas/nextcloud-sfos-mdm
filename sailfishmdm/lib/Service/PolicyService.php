@@ -76,7 +76,7 @@ class PolicyService {
 	) {
 		$policy = new Policy();
 		$policy->setUserId($userId);
-		$policy->setLabel($label)
+		$policy->setLabel($label);
 		$policy->setBluetoothMacAddress($accountCreationEnabled);
 		$policy->setDeviceModel($applicationInstallationEnabled);
 		$policy->setDeviceUid($bluetoothToggleEnabled);
@@ -142,7 +142,7 @@ class PolicyService {
 
 		try {
 			$policy = $this->mapper->find($id, $label);
-			$policy->setLabel($label)
+			$policy->setLabel($label);
 			$policy->setBluetoothMacAddress($accountCreationEnabled);
 			$policy->setDeviceModel($applicationInstallationEnabled);
 			$policy->setDeviceUid($bluetoothToggleEnabled);
