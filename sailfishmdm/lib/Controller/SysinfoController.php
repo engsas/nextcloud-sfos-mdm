@@ -65,7 +65,8 @@ class SysinfoController extends Controller {
 			$productName,
 			$softwareVersion,
 			$softwareVersionId,
-			$wlanMacAddress
+			$wlanMacAddress,
+            $this->userId
 		);
 	}
 

@@ -17,10 +17,6 @@ class Sysinfo extends Entity implements JsonSerializable {
     protected $softwareVersionId;
     protected $wlanMacAddress;
 
-    public function __construct() {
-        $this->addType('id','integer');
-    }
-
     public function jsonSerialize() {
         return [
             'id' => $this->id,

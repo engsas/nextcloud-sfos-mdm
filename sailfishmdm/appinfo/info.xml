@@ -5,7 +5,7 @@
 	<name>Sailfish MDM</name>
 	<summary>Backend for a Mobile Device Management (MDM) of Sailfish Devices</summary>
 	<description>Backend for managing Sailfish Devices via MDM.</description>
-	<version>0.0.2</version>
+	<version>0.0.3</version>
 	<licence>agpl</licence>
 	<author mail="joachim.langenbach@engsas.de" homepage="">Joachim Langenbach</author>
 	<namespace>SailfishMDM</namespace>
