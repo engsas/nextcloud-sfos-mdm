@@ -9,16 +9,14 @@
 							details="update?"
 							:to="('/devices/' + sysinfo.id)"
 				>
+					<template #icon>
+						<IconDevice :size="20" />
+					</template>
 					<template #subname>
 						Profile: activated profile
 					</template>
 					<template slot="actions">
-						<NcActionButton v-if="sysinfo.id === -1"
-							icon="icon-close"
-							@click="cancelNewSysinfo(sysinfo)">
-							{{ t('sailfishmdm', 'Cancel Device creation') }}
-						</NcActionButton>
-						<NcActionButton v-else
+						<NcActionButton
 							icon="icon-delete"
 							@click="deleteSysinfo(sysinfo)">
 							{{ t('sailfishmdm', 'Delete Device') }}
@@ -49,6 +47,7 @@ import {
 
 import Device from "../components/Device.vue"
 import NoDeviceSelected from "../components/NoDeviceSelected.vue"
+import IconDevice from 'vue-material-design-icons/CellphoneWireless.vue'
 
 export default {
     name: 'DevicesView',
@@ -56,8 +55,10 @@ export default {
 		NcAppContent,
 		NcAppContentList,
 		NcListItem,
+		NcActionButton,
 		Device,
 		NoDeviceSelected,
+		IconDevice,
     },
     data() {
 		return {
@@ -82,8 +83,26 @@ export default {
 		resetCurrentSysinfoId(id) {
 			this.currentSysinfoId = id;
 		},
+		/**
+		 * Delete a sysinfo, remove it from the frontend and show a hint
+		 *
+		 * @param {object} sysinfo Sysinfo object
+		 */
+		async deleteSysinfo(sysinfo) {
+			try {
+				await axios.delete(generateUrl(`/apps/sailfishmdm/sysinfos/${sysinfo.id}`))
+				this.sysinfos.splice(this.sysinfos.indexOf(sysinfo), 1)
+				if (this.currentSysinfoId === sysinfo.id) {
+					this.currentSysinfoId = null
+				}
+				showSuccess(t('sailfishmdm', 'Sysinfo deleted'))
+			} catch (e) {
+				console.error(e)
+				showError(t('sailfishmdm', 'Could not delete the sysinfo'))
+			}
+		},
 	},
-    watch: {
+	watch: {
 		$route(to, from) {
 			if (to.params.id != from.params.id){
 				this.resetCurrentSysinfoId(to.params.id);

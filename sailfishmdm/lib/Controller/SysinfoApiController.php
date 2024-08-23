@@ -68,6 +68,7 @@ class SysinfoApiController extends ApiController {
 		string $wlanMacAddress
     ) {
         return $this->service->create(
+            $this->userId,
 			$bluetoothMacAddress,
 			$deviceModel,
 			$deviceUid,
@@ -75,8 +76,7 @@ class SysinfoApiController extends ApiController {
 			$productName,
 			$softwareVersion,
 			$softwareVersionId,
-			$wlanMacAddress,
-            $this->userId
+			$wlanMacAddress
         );
     }
 
@@ -97,6 +97,7 @@ class SysinfoApiController extends ApiController {
      */
     public function update(
         $id,
+        string $userId,
         string $bluetoothMacAddress,
         string $deviceModel,
         string $deviceUid,
@@ -108,6 +109,7 @@ class SysinfoApiController extends ApiController {
     ) {
         return $this->handleNotFound(function () use (
 			$id,
+            $userId,
 			$bluetoothMacAddress,
 			$deviceModel,
 			$deviceUid,
@@ -119,6 +121,7 @@ class SysinfoApiController extends ApiController {
 		) {
             return $this->service->update(
                 $id,
+                $userId,
                 $bluetoothMacAddress,
                 $deviceModel,
                 $deviceUid,
@@ -126,8 +129,7 @@ class SysinfoApiController extends ApiController {
                 $productName,
                 $softwareVersion,
                 $softwareVersionId,
-                $wlanMacAddress,
-                $this->userId
+                $wlanMacAddress
             );
         });
     }

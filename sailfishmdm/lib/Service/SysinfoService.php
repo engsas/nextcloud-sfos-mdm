@@ -56,6 +56,7 @@ class SysinfoService {
 	 * @param string $wlanMacAddress
 	 */
 	public function create(
+		string $userId,
 		string $bluetoothMacAddress,
 		string $deviceModel,
 		string $deviceUid,
@@ -63,20 +64,23 @@ class SysinfoService {
 		string $productName,
 		string $softwareVersion,
 		string $softwareVersionId,
-		string $wlanMacAddress,
-		string $userId
+		string $wlanMacAddress
 	) {
-		$device = new Sysinfo();
-		$device->setUserId($userId);
-		$device->setBluetoothMacAddress($bluetoothMacAddress);
-		$device->setDeviceModel($deviceModel);
-		$device->setDeviceUid($deviceUid);
-		$device->setManufacturer($manufacturer);
-		$device->setProductName($productName);
-		$device->setSoftwareVersion($softwareVersion);
-		$device->setSoftwareVersionId($softwareVersionId);
-		$device->setWlanMacAddress($wlanMacAddress);
-		return $this->mapper->insert($device);
+		try {
+			$device = new Sysinfo();
+			$device->setUserId($userId);
+			$device->setBluetoothMacAddress($bluetoothMacAddress);
+			$device->setDeviceModel($deviceModel);
+			$device->setDeviceUid($deviceUid);
+			$device->setManufacturer($manufacturer);
+			$device->setProductName($productName);
+			$device->setSoftwareVersion($softwareVersion);
+			$device->setSoftwareVersionId($softwareVersionId);
+			$device->setWlanMacAddress($wlanMacAddress);
+			return $this->mapper->insert($device);
+		} catch(Exception $e) {
+			$this->handleException($e);
+		}
 	}
 
 	/**
@@ -87,6 +91,7 @@ class SysinfoService {
 	 */
 	public function update(
 		int $id,
+		string $userId,
 		string $bluetoothMacAddress,
 		string $deviceModel,
 		string $deviceUid,
@@ -95,7 +100,6 @@ class SysinfoService {
 		string $softwareVersion,
 		string $softwareVersionId,
 		string $wlanMacAddress,
-		string $userId
 	) {
 
 		try {

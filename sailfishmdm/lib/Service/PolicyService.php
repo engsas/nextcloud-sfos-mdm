@@ -31,7 +31,7 @@ class PolicyService {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 *
-	 * @param int $deviceId
+	 * @param int $id
 	 * @return DataResponse|Http::STATUS_NOT_FOUND
 	 */
 	public function find(int $id, string $userId) {
@@ -47,7 +47,9 @@ class PolicyService {
 	 * @NoCSRFRequired
 	 */
 	public function create(
-		bool $label,
+		string $userId,
+		string $label,
+		bool $defaultPolicy,
 		bool $accountCreationEnabled,
 		bool $applicationInstallationEnabled,
 		bool $bluetoothToggleEnabled,
@@ -72,36 +74,40 @@ class PolicyService {
 		bool $vpnConfigurationSettingsEnabled,
 		bool $vpnConnectionSettingsEnabled,
 		bool $wlanToggleEnabled,
-		string $userId
 	) {
-		$policy = new Policy();
-		$policy->setUserId($userId);
-		$policy->setLabel($label);
-		$policy->setBluetoothMacAddress($accountCreationEnabled);
-		$policy->setDeviceModel($applicationInstallationEnabled);
-		$policy->setDeviceUid($bluetoothToggleEnabled);
-		$policy->setManufacturer($browserEnabled);
-		$policy->setProductName($callStatisticsSettingsEnabled);
-		$policy->setSoftwareVersion($cameraEnabled);
-		$policy->setSoftwareVersionId($cellularTechnologySettingsEnabled);
-		$policy->setWlanMacAddress($dateTimeSettingsEnabled);
-		$policy->setBluetoothMacAddress($developerModeSettingsEnabled);
-		$policy->setDeviceModel($deviceResetEnabled);
-		$policy->setDeviceUid($flightModeToggleEnabled);
-		$policy->setManufacturer($internetSharingEnabled);
-		$policy->setProductName($locationSettingsEnabled);
-		$policy->setSoftwareVersion($microphoneEnabled);
-		$policy->setSoftwareVersionId($mobileDataAccessPointSettingsEnabled);
-		$policy->setWlanMacAddress($mobileNetworkSettingsEnabled);
-		$policy->setBluetoothMacAddress($networkDataCounterSettingsEnabled);
-		$policy->setDeviceModel($networkProxySettingsEnabled);
-		$policy->setDeviceUid($osUpdatesEnabled);
-		$policy->setManufacturer($screenshotEnabled);
-		$policy->setProductName($sideLoadingSettingsEnabled);
-		$policy->setSoftwareVersion($vpnConfigurationSettingsEnabled);
-		$policy->setSoftwareVersionId($vpnConnectionSettingsEnabled);
-		$policy->setWlanMacAddress($wlanToggleEnabled);
-		return $this->mapper->insert($policy);
+		try {
+			$policy = new Policy();
+			$policy->setUserId($userId);
+			$policy->setLabel($label);
+			$policy->setDefaultPolicy($defaultPolicy);
+			$policy->setAccountCreationEnabled($accountCreationEnabled);
+			$policy->setApplicationInstallationEnabled($applicationInstallationEnabled);
+			$policy->setBluetoothToggleEnabled($bluetoothToggleEnabled);
+			$policy->setBrowserEnabled($browserEnabled);
+			$policy->setCallStatisticsSettingsEnabled($callStatisticsSettingsEnabled);
+			$policy->setCameraEnabled($cameraEnabled);
+			$policy->setCellularTechnologySettingsEnabled($cellularTechnologySettingsEnabled);
+			$policy->setDateTimeSettingsEnabled($dateTimeSettingsEnabled);
+			$policy->setDeveloperModeSettingsEnabled($developerModeSettingsEnabled);
+			$policy->setDeviceResetEnabled($deviceResetEnabled);
+			$policy->setFlightModeToggleEnabled($flightModeToggleEnabled);
+			$policy->setInternetSharingEnabled($internetSharingEnabled);
+			$policy->setLocationSettingsEnabled($locationSettingsEnabled);
+			$policy->setMicrophoneEnabled($microphoneEnabled);
+			$policy->setMobileDataAccessPointSettingsEnabled($mobileDataAccessPointSettingsEnabled);
+			$policy->setMobileNetworkSettingsEnabled($mobileNetworkSettingsEnabled);
+			$policy->setNetworkDataCounterSettingsEnabled($networkDataCounterSettingsEnabled);
+			$policy->setNetworkProxySettingsEnabled($networkProxySettingsEnabled);
+			$policy->setOsUpdatesEnabled($osUpdatesEnabled);
+			$policy->setScreenshotEnabled($screenshotEnabled);
+			$policy->setSideLoadingSettingsEnabled($sideLoadingSettingsEnabled);
+			$policy->setVpnConfigurationSettingsEnabled($vpnConfigurationSettingsEnabled);
+			$policy->setVpnConnectionSettingsEnabled($vpnConnectionSettingsEnabled);
+			$policy->setWlanToggleEnabled($wlanToggleEnabled);
+			return $this->mapper->insert($policy);
+		} catch(Exception $e) {
+			$this->handleException($e);
+		}
 	}
 
 	/**
@@ -112,7 +118,9 @@ class PolicyService {
 	 */
 	public function update(
 		int $id,
-		bool $label,
+		string $userId,
+		string $label,
+		bool $defaultPolicy,
 		bool $accountCreationEnabled,
 		bool $applicationInstallationEnabled,
 		bool $bluetoothToggleEnabled,
@@ -137,36 +145,36 @@ class PolicyService {
 		bool $vpnConfigurationSettingsEnabled,
 		bool $vpnConnectionSettingsEnabled,
 		bool $wlanToggleEnabled,
-		string $userId
 	) {
 
 		try {
-			$policy = $this->mapper->find($id, $label);
+			$policy = $this->mapper->find($id, $userId);
 			$policy->setLabel($label);
-			$policy->setBluetoothMacAddress($accountCreationEnabled);
-			$policy->setDeviceModel($applicationInstallationEnabled);
-			$policy->setDeviceUid($bluetoothToggleEnabled);
-			$policy->setManufacturer($browserEnabled);
-			$policy->setProductName($callStatisticsSettingsEnabled);
-			$policy->setSoftwareVersion($cameraEnabled);
-			$policy->setSoftwareVersionId($cellularTechnologySettingsEnabled);
-			$policy->setWlanMacAddress($dateTimeSettingsEnabled);
-			$policy->setBluetoothMacAddress($developerModeSettingsEnabled);
-			$policy->setDeviceModel($deviceResetEnabled);
-			$policy->setDeviceUid($flightModeToggleEnabled);
-			$policy->setManufacturer($internetSharingEnabled);
-			$policy->setProductName($locationSettingsEnabled);
-			$policy->setSoftwareVersion($microphoneEnabled);
-			$policy->setSoftwareVersionId($mobileDataAccessPointSettingsEnabled);
-			$policy->setWlanMacAddress($mobileNetworkSettingsEnabled);
-			$policy->setBluetoothMacAddress($networkDataCounterSettingsEnabled);
-			$policy->setDeviceModel($networkProxySettingsEnabled);
-			$policy->setDeviceUid($osUpdatesEnabled);
-			$policy->setManufacturer($screenshotEnabled);
-			$policy->setProductName($sideLoadingSettingsEnabled);
-			$policy->setSoftwareVersion($vpnConfigurationSettingsEnabled);
-			$policy->setSoftwareVersionId($vpnConnectionSettingsEnabled);
-			$policy->setWlanMacAddress($wlanToggleEnabled);
+			$policy->setDefaultPolicy($defaultPolicy);
+			$policy->setAccountCreationEnabled($accountCreationEnabled);
+			$policy->setApplicationInstallationEnabled($applicationInstallationEnabled);
+			$policy->setBluetoothToggleEnabled($bluetoothToggleEnabled);
+			$policy->setBrowserEnabled($browserEnabled);
+			$policy->setCallStatisticsSettingsEnabled($callStatisticsSettingsEnabled);
+			$policy->setCameraEnabled($cameraEnabled);
+			$policy->setCellularTechnologySettingsEnabled($cellularTechnologySettingsEnabled);
+			$policy->setDateTimeSettingsEnabled($dateTimeSettingsEnabled);
+			$policy->setDeveloperModeSettingsEnabled($developerModeSettingsEnabled);
+			$policy->setDeviceResetEnabled($deviceResetEnabled);
+			$policy->setFlightModeToggleEnabled($flightModeToggleEnabled);
+			$policy->setInternetSharingEnabled($internetSharingEnabled);
+			$policy->setLocationSettingsEnabled($locationSettingsEnabled);
+			$policy->setMicrophoneEnabled($microphoneEnabled);
+			$policy->setMobileDataAccessPointSettingsEnabled($mobileDataAccessPointSettingsEnabled);
+			$policy->setMobileNetworkSettingsEnabled($mobileNetworkSettingsEnabled);
+			$policy->setNetworkDataCounterSettingsEnabled($networkDataCounterSettingsEnabled);
+			$policy->setNetworkProxySettingsEnabled($networkProxySettingsEnabled);
+			$policy->setOsUpdatesEnabled($osUpdatesEnabled);
+			$policy->setScreenshotEnabled($screenshotEnabled);
+			$policy->setSideLoadingSettingsEnabled($sideLoadingSettingsEnabled);
+			$policy->setVpnConfigurationSettingsEnabled($vpnConfigurationSettingsEnabled);
+			$policy->setVpnConnectionSettingsEnabled($vpnConnectionSettingsEnabled);
+			$policy->setWlanToggleEnabled($wlanToggleEnabled);
 			return $this->mapper->update($policy);
 		} catch(Exception $e) {
 			$this->handleException($e);

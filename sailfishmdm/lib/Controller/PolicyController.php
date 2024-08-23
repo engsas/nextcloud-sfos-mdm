@@ -49,7 +49,8 @@ class PolicyController extends Controller {
 	 * @NoCSRFRequired
 	 */
 	public function create(
-		bool $label,
+		string $label,
+		bool $defaultPolicy,
 		bool $accountCreationEnabled,
 		bool $applicationInstallationEnabled,
 		bool $bluetoothToggleEnabled,
@@ -76,7 +77,9 @@ class PolicyController extends Controller {
 		bool $wlanToggleEnabled
 	) {
 		return $this->service->create(
+			$this->userId,
 			$label,
+			$defaultPolicy,
 			$accountCreationEnabled,
 			$applicationInstallationEnabled,
 			$bluetoothToggleEnabled,
@@ -100,8 +103,7 @@ class PolicyController extends Controller {
 			$sideLoadingSettingsEnabled,
 			$vpnConfigurationSettingsEnabled,
 			$vpnConnectionSettingsEnabled,
-			$wlanToggleEnabled,
-            $this->userId
+			$wlanToggleEnabled
 		);
 	}
 
@@ -111,7 +113,9 @@ class PolicyController extends Controller {
 	 */
 	public function update(
         $id,
-		bool $label,
+		string $userId,
+		string $label,
+		bool $defaultPolicy,
 		bool $accountCreationEnabled,
 		bool $applicationInstallationEnabled,
 		bool $bluetoothToggleEnabled,
@@ -139,7 +143,9 @@ class PolicyController extends Controller {
     ) {
         return $this->handleNotFound(function () use (
 			$id,
+			$userId,
 			$label,
+			$defaultPolicy,
 			$accountCreationEnabled,
 			$applicationInstallationEnabled,
 			$bluetoothToggleEnabled,
@@ -167,7 +173,9 @@ class PolicyController extends Controller {
 		) {
             return $this->service->update(
                 $id,
+				$userId,
 				$label,
+				$defaultPolicy,
 				$accountCreationEnabled,
 				$applicationInstallationEnabled,
 				$bluetoothToggleEnabled,

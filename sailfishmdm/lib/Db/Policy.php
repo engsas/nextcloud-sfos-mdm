@@ -9,6 +9,7 @@ class Policy extends Entity implements JsonSerializable {
 
     protected $userId;
     protected $label;
+    protected $defaultPolicy;
     protected $accountCreationEnabled;
     protected $applicationInstallationEnabled;
     protected $bluetoothToggleEnabled;
@@ -33,6 +34,37 @@ class Policy extends Entity implements JsonSerializable {
     protected $vpnConfigurationSettingsEnabled;
     protected $vpnConnectionSettingsEnabled;
     protected $wlanToggleEnabled;
+
+    public function __construct() {
+        $this->addType('id','integer');
+        $this->addType('userId','integer');
+        $this->addType('label','string');
+        $this->addType('defaultPolicy','boolean');
+        $this->addType('accountCreationEnabled','boolean');
+        $this->addType('applicationInstallationEnabled','boolean');
+        $this->addType('bluetoothToggleEnabled','boolean');
+        $this->addType('browserEnabled','boolean');
+        $this->addType('callStatisticsSettingsEnabled','boolean');
+        $this->addType('cameraEnabled','boolean');
+        $this->addType('cellularTechnologySettingsEnabled','boolean');
+        $this->addType('dateTimeSettingsEnabled','boolean');
+        $this->addType('developerModeSettingsEnabled','boolean');
+        $this->addType('deviceResetEnabled','boolean');
+        $this->addType('flightModeToggleEnabled','boolean');
+        $this->addType('internetSharingEnabled','boolean');
+        $this->addType('locationSettingsEnabled','boolean');
+        $this->addType('microphoneEnabled','boolean');
+        $this->addType('mobileDataAccessPointSettingsEnabled','boolean');
+        $this->addType('mobileNetworkSettingsEnabled','boolean');
+        $this->addType('networkDataCounterSettingsEnabled','boolean');
+        $this->addType('networkProxySettingsEnabled','boolean');
+        $this->addType('osUpdatesEnabled','boolean');
+        $this->addType('screenshotEnabled','boolean');
+        $this->addType('sideLoadingSettingsEnabled','boolean');
+        $this->addType('vpnConfigurationSettingsEnabled','boolean');
+        $this->addType('vpnConnectionSettingsEnabled','boolean');
+        $this->addType('wlanToggleEnabled','boolean');
+    }
 
     public function columnToProperty($column) {
         if ($column === 'app_installation_enabled') {
@@ -60,7 +92,7 @@ class Policy extends Entity implements JsonSerializable {
 
     public function propertyToColumn($property) {
         if ($property === 'applicationInstallationEnabled') {
-            return 'application_installation_en';
+            return 'app_installation_enabled';
         } elseif ($property === 'callStatisticsSettingsEnabled') {
             return 'call_stats_set_enabled';
         } elseif  ($property === 'cellularTechnologySettingsEnabled') {
@@ -85,7 +117,9 @@ class Policy extends Entity implements JsonSerializable {
     public function jsonSerialize() {
         return [
             'id' => $this->id,
+            'userdId' => $this->userId,
             'label' => $this->label,
+            'defaultPolicy' => $this->defaultPolicy,
             'accountCreationEnabled' => $this->accountCreationEnabled,
             'applicationInstallationEnabled' => $this->applicationInstallationEnabled,
             'bluetoothToggleEnabled' => $this->bluetoothToggleEnabled,

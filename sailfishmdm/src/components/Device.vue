@@ -7,8 +7,12 @@
                 <tr><td>Product Name:</td><td>{{currentSysinfo.productName}}</td></tr>
                 <tr><td>Software Version:</td><td>{{currentSysinfo.softwareVersion}}</td></tr>
                 <tr><td>Software Version ID:</td><td>{{currentSysinfo.softwareVersionId}}</td></tr>
-                <tr><td>Bluetooth Mac Address:</td><td>{{currentSysinfo.bluetoothMacAddress}}</td></tr>
-                <tr><td>WLAN Mac Address:</td><td>{{currentSysinfo.wlanMacAddress}}</td></tr>
+                <tr><td>
+                    <IconBluetooth :size="20" />
+                    Bluetooth Mac Address:</td><td>{{currentSysinfo.bluetoothMacAddress}}</td></tr>
+                <tr><td>
+                    <IconWifi :size="20" />
+                    WLAN Mac Address:</td><td>{{currentSysinfo.wlanMacAddress}}</td></tr>
             </table>
 			<div v-else id="emptycontent">
 				<div class="icon-file" />
@@ -23,11 +27,15 @@ import { showError } from '@nextcloud/dialogs'
 import { watch, ref } from 'vue'
 import axios from '@nextcloud/axios'
 import { generateUrl } from '@nextcloud/router'
+import IconBluetooth from 'vue-material-design-icons/Bluetooth.vue'
+import IconWifi from 'vue-material-design-icons/Wifi.vue'
 
 export default {
     name: 'Device',
     components: {
 		NcAppContentDetails,
+		IconBluetooth,
+		IconWifi,
     },
     data() {
 		return {

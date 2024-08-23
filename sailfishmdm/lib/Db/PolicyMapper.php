@@ -7,7 +7,7 @@ use OCP\AppFramework\Db\QBMapper;
 class PolicyMapper extends QBMapper {
 
     public function __construct(IDBConnection $db) {
-        parent::__construct($db, 'sailfishmdm_policy', Sysinfo::class);
+        parent::__construct($db, 'sailfishmdm_policy', Policy::class);
     }
 
     public function find(int $id, string $userId) {

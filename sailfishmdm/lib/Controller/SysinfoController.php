@@ -59,6 +59,7 @@ class SysinfoController extends Controller {
 		string $wlanMacAddress
 	) {
 		return $this->service->create(
+			$this->userId,
 			$bluetoothMacAddress,
 			$deviceModel,
 			$deviceUid,
@@ -66,8 +67,7 @@ class SysinfoController extends Controller {
 			$productName,
 			$softwareVersion,
 			$softwareVersionId,
-			$wlanMacAddress,
-            $this->userId
+			$wlanMacAddress
 		);
 	}
 
@@ -77,6 +77,7 @@ class SysinfoController extends Controller {
 	 */
 	public function update(
         $id,
+		string $userId,
         string $bluetoothMacAddress,
         string $deviceModel,
         string $deviceUid,
@@ -88,6 +89,7 @@ class SysinfoController extends Controller {
     ) {
         return $this->handleNotFound(function () use (
 			$id,
+			$userId,
 			$bluetoothMacAddress,
 			$deviceModel,
 			$deviceUid,
@@ -99,6 +101,7 @@ class SysinfoController extends Controller {
 		) {
             return $this->service->update(
                 $id,
+				$userId,
                 $bluetoothMacAddress,
                 $deviceModel,
                 $deviceUid,

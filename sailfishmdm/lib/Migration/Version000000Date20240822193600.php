@@ -36,6 +36,7 @@
             $table->addColumn('label', 'string', [
                 'default' => false,
                 'notnull' => false,
+                'length' => 200,
             ]);
             $table->addColumn('account_creation_enabled', 'boolean', [
                 'default' => false,

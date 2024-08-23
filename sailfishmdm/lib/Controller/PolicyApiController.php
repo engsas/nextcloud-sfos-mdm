@@ -27,7 +27,9 @@ class PolicyApiController extends ApiController {
      * @NoAdminRequired
      */
     public function index() {
-        return new DataResponse($this->service->findAll($this->userId));
+		return $this->handleNotFound(function () {
+			return $this->service->findAll($this->userId);
+		});
     }
 
     /**
@@ -50,7 +52,8 @@ class PolicyApiController extends ApiController {
      *
      */
     public function create(
-		bool $label,
+		string $label,
+		bool $defaultPolicy,
 		bool $accountCreationEnabled,
 		bool $applicationInstallationEnabled,
 		bool $bluetoothToggleEnabled,
@@ -77,7 +80,9 @@ class PolicyApiController extends ApiController {
 		bool $wlanToggleEnabled
     ) {
         return $this->service->create(
+			$this->userId,
 			$label,
+			$defaultPolicy,
 			$accountCreationEnabled,
 			$applicationInstallationEnabled,
 			$bluetoothToggleEnabled,
@@ -101,8 +106,7 @@ class PolicyApiController extends ApiController {
 			$sideLoadingSettingsEnabled,
 			$vpnConfigurationSettingsEnabled,
 			$vpnConnectionSettingsEnabled,
-			$wlanToggleEnabled,
-            $this->userId
+			$wlanToggleEnabled
         );
     }
 
@@ -114,7 +118,9 @@ class PolicyApiController extends ApiController {
      */
     public function update(
         $id,
-		bool $label,
+		string $userId,
+		string $label,
+		bool $defaultPolicy,
 		bool $accountCreationEnabled,
 		bool $applicationInstallationEnabled,
 		bool $bluetoothToggleEnabled,
@@ -142,7 +148,9 @@ class PolicyApiController extends ApiController {
     ) {
         return $this->handleNotFound(function () use (
 			$id,
+			$userId,
 			$label,
+			$defaultPolicy,
 			$accountCreationEnabled,
 			$applicationInstallationEnabled,
 			$bluetoothToggleEnabled,
@@ -170,7 +178,9 @@ class PolicyApiController extends ApiController {
 		) {
             return $this->service->update(
                 $id,
+				$userId,
                 $label,
+                $defaultPolicy,
                 $accountCreationEnabled,
                 $applicationInstallationEnabled,
                 $bluetoothToggleEnabled,
@@ -195,7 +205,6 @@ class PolicyApiController extends ApiController {
                 $vpnConfigurationSettingsEnabled,
                 $vpnConnectionSettingsEnabled,
                 $wlanToggleEnabled,
-                $this->userId
             );
         });
     }

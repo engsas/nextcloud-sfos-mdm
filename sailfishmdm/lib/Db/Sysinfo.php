@@ -17,6 +17,19 @@ class Sysinfo extends Entity implements JsonSerializable {
     protected $softwareVersionId;
     protected $wlanMacAddress;
 
+    public function __construct() {
+        $this->addType('id','integer');
+        $this->addType('userId','integer');
+        $this->addType('bluetoothMacAddress','string');
+        $this->addType('deviceModel','string');
+        $this->addType('deviceUid','string');
+        $this->addType('manufacturer','string');
+        $this->addType('productName','string');
+        $this->addType('softwareVersion','string');
+        $this->addType('softwareVersionId','string');
+        $this->addType('wlanMacAddress','string');
+    }
+
     public function jsonSerialize() {
         return [
             'id' => $this->id,
@@ -29,6 +42,7 @@ class Sysinfo extends Entity implements JsonSerializable {
             'softwareVersion' => $this->softwareVersion,
             'softwareVersionId' => $this->softwareVersionId,
             'wlanMacAddress' => $this->wlanMacAddress,
+            'userdId' => $this->userId,
         ];
     }
 }

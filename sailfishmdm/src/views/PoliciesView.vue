@@ -28,7 +28,7 @@
 			</NcAppContentList>
 		</template>
 
-		<Policy v-if="currentPolicyId" />
+		<PolicyCreate v-if="currentPolicyId" />
 		<NoPolicySelected v-else-if="currentPolicyId == 0" />
 	</NcAppContent>
 </template>
@@ -47,7 +47,7 @@ import {
 	NcListItem,
 } from '@nextcloud/vue'
 
-import Policy from "../components/Policy.vue"
+import PolicyCreate from "../components/PolicyCreate.vue"
 import NoPolicySelected from "../components/NoPolicySelected.vue"
 
 export default {
@@ -56,7 +56,7 @@ export default {
 		NcAppContent,
 		NcAppContentList,
 		NcListItem,
-		Policy,
+		PolicyCreate,
 		NoPolicySelected,
     },
     data() {
@@ -68,6 +68,7 @@ export default {
 	},
 	methods: {
 		async getPolicies () {
+			this.loading = true;
 			try {
 				const response = await axios.get(generateUrl('/apps/sailfishmdm/policies'))
 
